@@ -6,24 +6,23 @@ function isAnagram(str1, str2) {
     str2 = str2.toLowerCase();
 
     let frequencyCount1 = {};
-    let frequencyCount2 = {};
-
+    
     for (let elem of str1) {
         frequencyCount1[elem] = (frequencyCount1[elem] || 0) + 1;
     }
-    for (let elem of str2) {
-        frequencyCount2[elem] = (frequencyCount2[elem] || 0) + 1;
-    }
+    
 
-    for (let char of str1) {
-        if(frequencyCount1[char] !== frequencyCount2[char]) {
+    for (let char of str2) {
+        if (!(frequencyCount1[char])) {
             return false;
+        } else {
+            frequencyCount1[char] -= 1;
         }
     }
 
     return true;
 }
 
-let str1 = "Thing";
-let str2 = 'Night';
+let str1 = "Things";
+let str2 = 'Nightg';
 console.log(isAnagram(str1, str2));
