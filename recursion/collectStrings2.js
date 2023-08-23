@@ -2,23 +2,19 @@
 // Write a function called collectStrings which accepts an object and
 // returns an array of all the values in the object that have a typeof string.
 
-function collectStrings(obj) {
-    let newArr = [];
+function collectStrings (obj) {
+    let stringArr = [];
 
-    function helper(helperInput) {
-        for (let key in helperInput) {
-            if (typeof helperInput[key] === 'string') {
-                newArr.push(helperInput[key]);
-            }
-            if (typeof helperInput[key] === 'object') {
-                helper(helperInput[key]);
-            }
+    for (let key in obj) {
+        if (typeof obj[key] === 'string') {
+            stringArr.push(obj[key]);
+        }
+        if (typeof obj[key] === 'object') {
+            stringArr = stringArr.concat(collectStrings(obj[key]));
         }
     }
 
-    helper(obj);
-
-    return newArr;
+    return stringArr;
 }
 
 const obj = {
@@ -38,3 +34,4 @@ const obj = {
   };
   
   console.log(collectStrings(obj));
+
