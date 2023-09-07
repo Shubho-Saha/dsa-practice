@@ -75,28 +75,46 @@ class SinglyLinkedList {
         return this;
     }
 
-    get(val) {
-        if (val < 0 || val > this.length -1) return null;
+    get(index) {
+        if (index < 0 || index > this.length - 1) return null;
         let count = 0;
         let currentItem = this.head;
-        while (count <= val) {
-            if (count === val) {
-                return currentItem.val;
+        while (count <= index) {
+            if (count === index) {
+                return currentItem;
             }
             currentItem = currentItem.next;
             count++;
         }
+    }
+
+    set(index, value) {
+        let targetNode = this.get(index);
+        if (!targetNode) return false;
+        targetNode.val = value;
+        return true;
+    }
+
+    insert(index, value) {
+        if (index < 0 || index > this.length) return false;
+        if (index === 0) return !!this.unshift(value);
+        if (index === this.length) !!this.push(value);
+        let newNode = new Node(value);
+        let leftNode = this.get(index-1);
+        let rightNode = leftNode.next;
+        leftNode.next = newNode;
+        newNode.next = rightNode;
+        this.length++;
+        return true;
+        
     }
 }
 
 let list = new SinglyLinkedList();
 list.push('Hey');
 list.push('there');
-list.push('wassup');
-list.push('man');
-
+list.push('shubho');
 console.log(list);
-console.log(list.get(2));
 
 
 
