@@ -100,19 +100,34 @@ class SinglyLinkedList {
         if (index === 0) return !!this.unshift(value);
         if (index === this.length) !!this.push(value);
         let newNode = new Node(value);
-        let leftNode = this.get(index-1);
+        let leftNode = this.get(index - 1);
         let rightNode = leftNode.next;
         leftNode.next = newNode;
         newNode.next = rightNode;
         this.length++;
         return true;
-        
+
     }
+
+    remove(index) {
+        if (index < 0 || index > this.length - 1) return undefined;
+        if (index === 0) return this.shift();
+        if (index === this.length - 1) return this.pop();
+        let leftNode = this.get(index - 1);
+        let targetNode = leftNode.next;
+        let rightNode = targetNode.next;
+        leftNode.next = rightNode;
+        this.length--;
+        return targetNode.val;
+    }
+
 }
 
 let list = new SinglyLinkedList();
 list.push('Hey');
 list.push('there');
+list.push('Mrinmoy');
+list.push('saha');
 list.push('shubho');
 console.log(list);
 
