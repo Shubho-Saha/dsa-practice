@@ -144,6 +144,24 @@ class SinglyLinkedList {
         return this;
     }
 
+    rotate(number) {
+        const index = number < 0 ? number + this.length : number;
+    
+        if (index < 0 || index >= this.length) return undefined;
+        if (index === 0) return this;
+    
+        const prevNode = this.get(index - 1);
+    
+        if (!prevNode) return undefined;
+    
+        this.tail.next = this.head;
+        this.head = prevNode.next;
+        this.tail = prevNode;
+        prevNode.next = null;
+    
+        return this;
+      }
+
     print() {
         let values = [];
         let current = this.head;
@@ -160,4 +178,5 @@ list.push('Hey');
 list.push('There');
 list.push('Mrinmoy');
 list.push('Saha');
+list.push('Shubho');
 console.log(list);

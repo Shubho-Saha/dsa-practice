@@ -142,8 +142,26 @@ class SinglyLinkedList {
         //     pre = node;
         //     node = next;
         // }
-        
+
         return this;
+    }
+
+    rotate(number) {
+        let index = (number < 0) ? number + this.length : number;
+
+        if (index < 0 || index >= this.length) return undefined;
+
+        let prevNode = this.get(index-1);
+
+        if (!prevNode) return undefined;
+
+        this.tail.next = this.head;
+        this.head = prevNode.next;
+        this.tail = prevNode;
+        prevNode.next = null;
+
+        return this;
+
     }
 
     print() {
