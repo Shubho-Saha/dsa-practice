@@ -121,6 +121,42 @@ class SinglyLinkedList {
         return targetNode.val;
     }
 
+    reverse() {
+        if (this.length < 2) return this;
+        let node = this.head;
+        this.head = this.tail;
+        this.tail = node;
+
+        let pre = null;
+        let next;
+        while (node) {
+            next = node.next;
+            node.next = pre;
+            pre = node;
+            node = next;
+        }
+
+        // for (let i=0; i<this.length; i++) {
+        //     next = node.next;
+        //     node.next = pre;
+        //     pre = node;
+        //     node = next;
+        // }
+        
+        return this;
+    }
+
+    print() {
+        let values = [];
+        let current = this.head;
+
+        while (current) {
+            values.push(current.val);
+            current = current.next;
+        }
+        console.log(values);
+    }
+
 }
 
 let list = new SinglyLinkedList();
