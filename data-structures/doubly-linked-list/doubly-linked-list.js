@@ -29,18 +29,49 @@ class DoublyLinkedList {
 
     pop() {
         if (this.length === 0) return undefined;
+        let temp = this.tail;
         if (this.length === 1) {
             this.head = null;
             this.tail = null;
-        }
-        let temp = this.tail;
-        this.tail = temp.prev;
-        this.tail.next = null;
-        temp.prev = null;
+        } else {
+            this.tail = temp.prev;
+            this.tail.next = null;
+            temp.prev = null;
+        }  
         this.length--;
         return temp.val;
     }
 
+    shift() {
+        if (this.length === 0) return undefined;
+        let oldHead = this.head;
+        if (this.length === 1) {
+            this.head = null;
+            this.tail = null;
+        } else {  
+            this.head = oldHead.next;
+            this.head.prev = null;
+            oldHead.next = null;
+        }
+        this.length--;
+        return oldHead.val;
+    }
+
+    unshift(value) {
+        let newNode = new Node(value);
+        if (this.length === 0) {
+            this.head = newNode;
+            this.tail = newNode
+        } else {
+            this.head.prev = newNode;
+            newNode.next = this.head;
+            this.head = newNode;
+        }
+        this.length++;
+        return this;
+    }
+
+   
     print() {
         let values = [];
         let current = this.head;
@@ -56,4 +87,8 @@ let list = new DoublyLinkedList();
 list.push('First');
 list.push('second');
 list.push('3rd');
+list.push('4th');
+list.push('fifth');
+list.push('6th');
+list.push('Seventh');
 console.log(list);
