@@ -1,3 +1,4 @@
+console.log('Doubly Linked List Practice');
 class Node {
     constructor(val) {
         this.val = val;
@@ -13,8 +14,8 @@ class DoublyLinkedList {
         this.length = 0;
     }
 
-    push(value) {
-        let newNode = new Node(value);
+    push(val) {
+        let newNode = new Node(val);
         if (this.length === 0) {
             this.head = newNode;
             this.tail = newNode;
@@ -42,6 +43,20 @@ class DoublyLinkedList {
         return temp.val;
     }
 
+    unshift(val) {
+        let newNode = new Node(val);
+        if (this.length === 0) {
+            this.head = newNode;
+            this.tail = newNode;
+        } else {
+            newNode.next = this.head;
+            this.head.prev = newNode;
+            this.head = newNode;
+        }
+        this.length++;
+        return this;
+    }
+
     shift() {
         if (this.length === 0) return undefined;
         let oldHead = this.head;
@@ -57,25 +72,13 @@ class DoublyLinkedList {
         return oldHead.val;
     }
 
-    unshift(value) {
-        let newNode = new Node(value);
-        if (this.length === 0) {
-            this.head = newNode;
-            this.tail = newNode
-        } else {
-            this.head.prev = newNode;
-            newNode.next = this.head;
-            this.head = newNode;
-        }
-        this.length++;
-        return this;
-    }
-
     get(index) {
         if (index < 0 || index >= this.length) return undefined;
+
         let count;
         let current;
-        if (index <= this.length / 2) {
+
+        if (index < this.length / 2) {
             count = 0;
             current = this.head;
             while (count !== index) {
@@ -90,18 +93,20 @@ class DoublyLinkedList {
                 count--;
             }
         }
+
         return current;
 
     }
 
     set(index, value) {
         let targetNode = this.get(index);
-        if (targetNode) {
+
+        if (targetNode != null) {
             targetNode.val = value;
             return true;
         }
-        return false;
 
+        return false;
     }
 
     insert(index, value) {
@@ -109,56 +114,57 @@ class DoublyLinkedList {
 
         if (index === 0) return !!this.unshift(value);
         if (index === this.length) return !!this.push(value);
+        else {
+            let newNode = new Node(value);
+            let leftNode = this.get(index - 1);
+            let rightNode = leftNode.next;
 
-        let newNode = new Node(value);
-        let leftNode = this.get(index - 1);
-        let rightNode = leftNode.next;
+            leftNode.next = newNode;
+            newNode.prev = leftNode;
+            rightNode.prev = newNode;
+            newNode.next = rightNode;
 
-        leftNode.next = newNode;
-        newNode.prev = leftNode;
-        rightNode.prev = newNode;
-        newNode.next = rightNode;
-        
+        }
         this.length++;
         return true;
-
     }
 
     remove(index) {
-        if (index < 0 || index >= this.length) return undefined;
-        if (index === 0) return this.shift();
-        if (index === this.length-1) return this.pop();
+        if (index < 0 || index >= this.length) return false;
 
-        let targetNode = this.get(index);
-        let leftNode = targetNode.prev;
-        let rightNode = targetNode.next;
+        if (index === 0) return !!this.shift();
+        if (index === this.length - 1) return !!this.pop();
 
-        leftNode.next = rightNode;
-        rightNode.prev = leftNode;
-        targetNode.next = null;
-        targetNode.prev = null;
-        this.length--;
-        return targetNode.val;
-        
+        else {
+            let targetNode = this.get(index);
+            let leftNode = targetNode.prev;
+            let rightNode = targetNode.next;
+
+            leftNode.next = rightNode;
+            rightNode.prev = leftNode;
+
+            this.length--;
+            return true;
+        }
     }
 
     print() {
-        let values = [];
+        let arr = [];
         let current = this.head;
         while (current) {
-            values.push(current.val);
+            arr.push(current.val);
             current = current.next;
         }
-        console.log(values);
+        console.log(arr);
     }
 }
 
 let list = new DoublyLinkedList();
-list.push('First');
-list.push('second');
-list.push('3rd');
-list.push('4th');
-list.push('fifth');
-list.push('6th');
-list.push('Seventh');
+list.push(5);
+list.push(10);
+list.push(15);
+list.push(20);
+list.push(25);
+console.log(list.remove(5))
+list.print();
 console.log(list);
