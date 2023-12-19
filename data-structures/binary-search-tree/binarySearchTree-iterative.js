@@ -36,13 +36,13 @@ class BinarySearchTree {
 
                 } else if (val > current.value) {
 
-                        if (current.right === null) {
-                            current.right = newNode;
-                            return this;
-                        } else {
-                            current = current.right;
-                        }
-                    
+                    if (current.right === null) {
+                        current.right = newNode;
+                        return this;
+                    } else {
+                        current = current.right;
+                    }
+
                 }
 
             }
@@ -53,7 +53,7 @@ class BinarySearchTree {
         if (this.root === null) return null;
         let current = this.root;
 
-        while(true) {
+        while (true) {
 
             if (val === current.value) {
                 return true;
@@ -81,10 +81,10 @@ class BinarySearchTree {
 
         queue.push(node);
 
-        while(queue.length) {
+        while (queue.length) {
             node = queue.shift();
             data.push(node.value);
-            if(node.left) queue.push(node.left);
+            if (node.left) queue.push(node.left);
             if (node.right) queue.push(node.right);
         }
 
@@ -100,6 +100,36 @@ class BinarySearchTree {
         function traverse(node) {
             data.push(node.value);
             if (node.left) traverse(node.left);
+            if (node.right) traverse(node.right);
+        }
+
+        traverse(current);
+        return data;
+    }
+
+    //Depth First Search PostOrder
+    DFSPostOrder() {
+        let data = [];
+        let current = this.root;
+
+        function traverse(node) {
+            if (node.left) traverse(node.left);
+            if (node.right) traverse(node.right);
+            data.push(node.value);
+        }
+
+        traverse(current);
+        return data;
+    }
+
+    //Depth First Search InOrder
+    DFSInOrder() {
+        let data = [];
+        let current = this.root;
+
+        function traverse(node) {
+            if (node.left) traverse(node.left);
+            data.push(node.value);
             if (node.right) traverse(node.right);
         }
 
@@ -124,3 +154,7 @@ console.log('Breadth First Search');
 console.log(bst.BFS());
 console.log('Depth First Search PreOrder');
 console.log(bst.DFSPreOrder());
+console.log('Depth First Search PostOrder');
+console.log(bst.DFSPostOrder());
+console.log('Depth First Search InOrder');
+console.log(bst.DFSInOrder());
