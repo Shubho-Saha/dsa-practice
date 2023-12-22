@@ -3,7 +3,6 @@ console.log('Binary Heap');
 class MaxBinaryHeap {
     constructor() {
         this.values = [];
-        this.demo = 'demo txt';
     }
 
     insert(element) {
