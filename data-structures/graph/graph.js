@@ -26,18 +26,44 @@ class Graph {
         delete this.adjacencyList[vertex];
         
     }
+
+    depthFirstRecursive(start) {
+        const result = [];
+        const visited = {};
+        const adjacencyList = this.adjacencyList;
+
+        function dfs(vertex) {
+            if (!vertex) return null;
+            visited[vertex] = true;
+            result.push(vertex);
+            adjacencyList[vertex].forEach(neighbor => {
+                if(!visited[neighbor]) {
+                    return dfs(neighbor)
+                }
+            });
+        }
+
+        dfs(start);
+        console.log(result);
+    }
 }
 
 let graph = new Graph();
-graph.addVertex("dhaka");
-graph.addVertex("sylhet");
-graph.addVertex('Ctg');
-graph.addVertex('Mymensingh');
+graph.addVertex("a");
+graph.addVertex("b");
+graph.addVertex('c');
+graph.addVertex('d');
+graph.addVertex('e');
+graph.addVertex('f');
 
-graph.addEdge('dhaka', 'sylhet');
-graph.addEdge('dhaka', 'Ctg');
-graph.addEdge('Mymensingh', 'Ctg');
+graph.addEdge('a', 'b');
+graph.addEdge('a', 'c');
+graph.addEdge('b', 'c');
+graph.addEdge('b', 'd');
+graph.addEdge('c', 'd');
+graph.addEdge('c', 'e');
+graph.addEdge('d', 'e');
+graph.addEdge('e', 'f');
 
-console.log(graph.adjacencyList);
-graph.removeVertex('Mymensingh');
+graph.depthFirstRecursive('a');
 
