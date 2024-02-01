@@ -17,14 +17,8 @@ function same(arr1, arr2) {
         frequencyCount2[elem] = (frequencyCount2[elem] || 0) + 1;
     }
 
-    // console.log(frequencyCount1);
-    // console.log(frequencyCount2);
-
     for (let element of arr1) {
 
-        if (!(element ** 2 in frequencyCount2)) {
-            return false;
-        }
         if (frequencyCount1[element] != frequencyCount2[element ** 2]) {
             return false;
         }
@@ -33,5 +27,5 @@ function same(arr1, arr2) {
 }
 
 let arr1 = [3, 2, 4, 5, 3];
-let arr2 = [9, 4, 16, 25, 91];
+let arr2 = [9, 4, 16, 25, 9];
 console.log(same(arr1, arr2));
