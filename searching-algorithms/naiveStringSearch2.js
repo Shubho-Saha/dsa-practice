@@ -12,7 +12,7 @@ function stringSearch (str, val) {
         if (str[i + j] !== val[j]) break;
         if (j === val.length - 1) {
             count++;
-            i = i + val.length;
+            i = i + j;
         } 
       }
     }
@@ -20,5 +20,5 @@ function stringSearch (str, val) {
     return count;
   }
   
-  console.log(stringSearch('womgxxomgz', 'omg'));
+  console.log(stringSearch('womgomgz', 'omg'));
 
