@@ -18,4 +18,4 @@ function findPair(arr, num) {
     return false;
   }
 
-  console.log(findPair([-2, -4], 6)); // true
+  console.log(findPair([-2, -4, 6, 3, 2], 6)); // true
