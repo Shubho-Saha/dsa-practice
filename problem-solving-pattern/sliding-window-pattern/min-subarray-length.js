@@ -10,20 +10,26 @@
 // Space Complexity - O(1)
 
 function minSubArrayLen(arr, num) {
-    let tempLen = 0;
-    let sum = 0;
+  let left = 0, right = 0, sum = 0;
+  let shortest = Infinity;
 
-    while (sum < num && tempLen < arr.length) {
-        sum += arr[tempLen];
-        tempLen++
+  while (right < arr.length) {
+    sum += arr[right];
+
+    while (sum >= num) {
+      sum -= arr[left];
+      left++;
+      shortest = Math.min(shortest, (right - left) + 2);
+      console.log('right:', right, ' left:', left, ' shortest:', shortest);
+      if (shortest === 1)  return shortest;
     }
 
-    if (sum < num) return 0;
-    
-    let minLen = tempLen;
+    right++;
+  }
 
-    console.log('tempLen: ', tempLen, " minLen: ", minLen);
+  return shortest === Infinity ? 0 : shortest;
+
 }
 
-console.log(minSubArrayLen([2,3,1,2,4,3], 7));
+console.log(minSubArrayLen([2, 3, 11, 2, 4, 13], 7)); 
 
